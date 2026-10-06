@@ -1,0 +1,17 @@
+{
+  "name": "submanager",
+  "version": "1.0.0",
+  "description": "AI-powered subscription intelligence, management, analytics, and renewal-tracking platform.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@neon/config": "^1.8.4",
+    "@neon/env": "^1.5.1"
+  }
+}

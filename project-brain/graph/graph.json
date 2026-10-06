@@ -1,0 +1,9 @@
+{
+  "FrontendApp": ["BackendAPI"],
+  "BackendAPI": ["Database"],
+  "Database": [],
+  "SubscriptionModule": ["BackendAPI", "Database"],
+  "AnalyticsModule": ["BackendAPI", "SubscriptionModule"],
+  "ReminderModule": ["BackendAPI", "SubscriptionModule", "Database"],
+  "AIModule": ["BackendAPI"]
+}

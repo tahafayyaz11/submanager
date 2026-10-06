@@ -1,0 +1,21 @@
+# Recent Files Changed
+- backend/app/models/subscription.py
+- backend/app/schemas/subscription.py
+- backend/app/core/deps.py
+- backend/app/services/subscription.py
+- backend/app/api/v1/subscriptions.py
+- backend/alembic/versions/27abfb355e8e_create_subscriptions_table.py
+- backend/tests/test_subscriptions.py
+- frontend/app/subscriptions/page.tsx
+- frontend/components/SubscriptionForm.tsx
+- frontend/components/SubscriptionList.tsx
+- frontend/lib/api.ts
+- project-brain/memory/database.md
+- project-brain/memory/api.md
+- project-brain/memory/backend.md
+- project-brain/memory/frontend.md
+- project-brain/tasks/completed.md
+- project-brain/tasks/changelog.md
+- project-brain/cache/recent-context.md
+- project-brain/cache/recent-files.md
+
