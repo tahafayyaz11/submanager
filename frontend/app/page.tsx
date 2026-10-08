@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 import { CheckCircle2, XCircle, AlertCircle, RefreshCw, Server, Database, Globe, Layers, CreditCard } from "lucide-react";
 
 interface HealthStatus {
@@ -66,22 +67,50 @@ export default function Home() {
       <div className="w-full max-w-4xl relative z-10 space-y-8">
         {/* Header */}
         <header className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-            <Layers className="w-3.5 h-3.5" /> Phase 1 Foundation Active
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <Layers className="w-3.5 h-3.5" /> Phase 3 Authentication & User Isolation Active
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">
             Subsfolio Platform
           </h1>
           <p className="text-sm md:text-base text-slate-400 max-w-xl mx-auto">
-            AI-powered subscription intelligence, management, analytics, and renewal-tracking platform.
+            AI-powered subscription intelligence, management, analytics, and renewal-tracking platform with strict multi-user tenant isolation.
           </p>
-          <div className="pt-2">
-            <Link
-              href="/subscriptions"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs transition shadow-lg shadow-indigo-600/25 active:scale-95"
-            >
-              <CreditCard className="w-4 h-4" /> Manage Subscriptions (Phase 2 CRUD)
-            </Link>
+          <div className="pt-2 flex items-center justify-center gap-3 flex-wrap">
+            <SignedIn>
+              <Link
+                href="/subscriptions"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs transition shadow-lg shadow-indigo-600/25 active:scale-95"
+              >
+                <CreditCard className="w-4 h-4" /> Manage Subscriptions
+              </Link>
+            </SignedIn>
+            <SignedOut>
+              <SignInButton mode="modal">
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs transition shadow-lg shadow-indigo-600/25 active:scale-95"
+                >
+                  <CreditCard className="w-4 h-4" /> Manage Subscriptions
+                </button>
+              </SignInButton>
+              <SignInButton mode="modal">
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-xs border border-slate-700 transition active:scale-95"
+                >
+                  Sign In
+                </button>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-400 font-medium text-xs border border-indigo-500/30 transition active:scale-95"
+                >
+                  Create Account
+                </button>
+              </SignUpButton>
+            </SignedOut>
           </div>
         </header>
 

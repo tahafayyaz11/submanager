@@ -141,4 +141,64 @@ Memory Updated: [database.md, api.md, backend.md, frontend.md]
 Graph Updated: yes
 ---
 
+---
+Task: Phase 3 — Authentication, User Ownership & Isolation (Clerk-Ready)
+Date: 2026-10-08
+Type: feature
+Files Changed:
+  - backend/requirements.txt
+  - backend/app/core/config.py
+  - backend/app/core/security.py
+  - backend/app/core/deps.py
+  - backend/app/models/user.py
+  - backend/app/models/__init__.py
+  - backend/app/schemas/user.py
+  - backend/app/schemas/__init__.py
+  - backend/app/services/user.py
+  - backend/app/services/__init__.py
+  - backend/app/api/v1/auth.py
+  - backend/app/api/v1/__init__.py
+  - backend/app/main.py
+  - backend/alembic/versions/5feaad396f25_create_users_table.py
+  - backend/tests/test_auth.py
+  - frontend/lib/api.ts
+  - frontend/lib/auth-context.tsx
+  - frontend/components/Navbar.tsx
+  - frontend/app/login/page.tsx
+  - frontend/app/signup/page.tsx
+  - frontend/app/layout.tsx
+  - frontend/app/subscriptions/page.tsx
+  - frontend/app/page.tsx
+Modules Changed:
+  - AuthModule
+  - BackendAPI
+  - Database
+  - FrontendApp
+Review Score: 100
+Memory Updated: [overview.md, database.md, api.md, backend.md, frontend.md]
+Graph Updated: yes
+---
+
+---
+Task: Clerk Authentication Integration
+Date: 2026-10-08
+Type: feature
+Files Changed:
+  - frontend/package.json
+  - frontend/middleware.ts
+  - frontend/app/layout.tsx
+  - frontend/app/globals.css
+  - frontend/components/Navbar.tsx
+  - frontend/app/sign-in/[[...sign-in]]/page.tsx
+  - frontend/app/sign-up/[[...sign-up]]/page.tsx
+  - project-brain/memory/overview.md
+  - project-brain/memory/frontend.md
+Modules Changed:
+  - AuthModule
+  - FrontendApp
+Review Score: 100
+Memory Updated: [overview.md, frontend.md]
+Graph Updated: no
+---
+
 

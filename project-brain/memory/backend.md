@@ -15,7 +15,8 @@
 
 ## 2. Core Business Logic & Services
 - `SubscriptionService`: CRUD operations scoped strictly by user identity. Soft-archives on delete.
-- `get_current_user_id`: Dependency isolated in `core/deps.py` supporting `X-User-Id` and `DEV_USER_ID` in development, raising 401 Unauthorized outside development.
+- `UserService`: User creation with bcrypt hashing, credential authentication, and external Clerk SSO sync.
+- `get_current_user` & `get_current_user_id`: Dependencies isolated in `core/deps.py` supporting `Authorization: Bearer <token>`, Clerk token inspection, and development fallback. Raises 401 Unauthorized outside development when unauthenticated.
 - `AnalyticsService` (Planned Phase 4): Deterministic monthly/annual spending aggregation and category breakdown.
 - `ReminderEngine` (Planned Phase 5): Scan upcoming renewals against preferences and dispatch reminders.
 - `AIExtractorService` (Planned Phase 6): Parse unstructured text/receipts into validated Pydantic schemas.
@@ -27,6 +28,10 @@
   - Pydantic v2 schemas: `SubscriptionCreate`, `SubscriptionUpdate`, `SubscriptionResponse`.
   - `SubscriptionService` with user-scoped create, get, list, update, and soft-archive methods.
   - REST endpoints mounted under `/api/v1/subscriptions` and root alias `/subscriptions`.
-  - Isolated `get_current_user_id()` dependency with dev-only fallbacks and production 401 guardrails.
-  - 13 automated tests passing in Pytest (`tests/test_health.py` and `tests/test_subscriptions.py`).
+- Phase 3 Authentication & User Isolation implemented:
+  - SQLAlchemy `User` model with String(128) ID (supporting both UUID and Clerk IDs), unique email, bcrypt hash, and timestamps.
+  - Pydantic v2 schemas: `UserCreate`, `UserLogin`, `UserResponse`, `TokenResponse`.
+  - Core security module `app/core/security.py` with bcrypt hashing and PyJWT token creation/decoding.
+  - Endpoints `/api/v1/auth/signup`, `/api/v1/auth/login`, and `/api/v1/auth/me`.
+  - Automated tests passing in Pytest: 19/19 passing (`test_health.py`, `test_subscriptions.py`, `test_auth.py`).
 

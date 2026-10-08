@@ -15,15 +15,15 @@ Subsfolio is an AI-powered subscription intelligence, management, analytics, and
 - **Frontend**: Next.js, React, TypeScript, Tailwind CSS, shadcn/ui.
 - **Backend**: Python, FastAPI, Pydantic, SQLAlchemy, Alembic.
 - **Database**: PostgreSQL (pgvector for future RAG).
-- **Authentication**: Clerk or Supabase Auth (TBD during Phase 3).
+- **Authentication**: Clerk (`@clerk/nextjs` with shadcn theme, linked to application `app_3KNcbw5uhM7VcS1DfaCN6zllJc8`).
 - **Background Jobs**: Simple backend scheduler initially (Celery + Redis later).
 - **Notifications**: Resend (email first).
 - **AI Integrations**: OpenAI API / Gemini API (direct SDK initially; LangGraph for complex agent orchestration later).
 
 ## 4. Current Status
-- **Current Phase**: Phase 1 — Project Foundation
+- **Current Phase**: Phase 3 — Authentication & Clerk Integration Completed
 - **Implementation Status**:
-  - `project-brain`: Initialized
-  - `frontend`: Scaffold pending (Phase 1)
-  - `backend`: Scaffold pending (Phase 1)
-  - `database`: Configuration pending (Phase 1)
+  - `project-brain`: Maintained & Active
+  - `frontend`: Fully scaffolded with App Router, Subscription CRUD, and Auth UI (/login, /signup, Navbar, AuthProvider)
+  - `backend`: FastAPI with Pydantic v2, bcrypt password hashing, JWT tokens, and strict user ownership & tenant isolation
+  - `database`: Live Neon PostgreSQL with Alembic migrations for `subscriptions` and `users` tables

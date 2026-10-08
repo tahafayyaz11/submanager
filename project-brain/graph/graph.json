@@ -1,9 +1,10 @@
 {
-  "FrontendApp": ["BackendAPI"],
+  "FrontendApp": ["BackendAPI", "AuthModule"],
   "BackendAPI": ["Database"],
   "Database": [],
-  "SubscriptionModule": ["BackendAPI", "Database"],
-  "AnalyticsModule": ["BackendAPI", "SubscriptionModule"],
-  "ReminderModule": ["BackendAPI", "SubscriptionModule", "Database"],
-  "AIModule": ["BackendAPI"]
+  "AuthModule": ["BackendAPI", "Database"],
+  "SubscriptionModule": ["BackendAPI", "Database", "AuthModule"],
+  "AnalyticsModule": ["BackendAPI", "SubscriptionModule", "AuthModule"],
+  "ReminderModule": ["BackendAPI", "SubscriptionModule", "Database", "AuthModule"],
+  "AIModule": ["BackendAPI", "AuthModule"]
 }

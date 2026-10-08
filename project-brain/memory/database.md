@@ -32,11 +32,13 @@
 - Live database connectivity verified passing (`database_connected: true`).
 - Alembic migrations initialized and executed:
   - Revision `27abfb355e8e_create_subscriptions_table.py` deployed to Neon PostgreSQL.
+  - Revision `5feaad396f25_create_users_table.py` deployed to Neon PostgreSQL:
+    - Table `users` created with columns: `id` (VARCHAR 128 PK, UUID/Clerk ID compatible), `email` (VARCHAR 255 UNIQUE, indexed), `hashed_password` (VARCHAR 255, nullable for SSO/Clerk), `full_name`, `avatar_url`, `is_active`, `created_at`, `updated_at`.
   - Table `subscriptions` active with constraints:
     - `ck_subscription_positive_price` (`price >= 0`)
     - `ck_subscription_billing_cycle` (`monthly`, `yearly`, `quarterly`, `weekly`)
     - `ck_subscription_status` (`active`, `cancelled`, `archived`, `paused`)
     - Indexes on `user_id`, `renewal_date`, and `status`.
     - Column types: `Decimal` / `NUMERIC(10,2)` for price, `VARCHAR(3)` currency, `ARRAY(Integer)` for `reminder_days_before`.
-- Health check ping and subscription CRUD verified against live database.
+- Health check ping, subscription CRUD, and auth user isolation verified passing against live database.
 

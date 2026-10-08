@@ -46,9 +46,15 @@ def health_endpoint() -> HealthResponse:
 # Include API v1 Router
 app.include_router(api_router, prefix="/api/v1")
 
-# Also mount /subscriptions at root for convenient API access
+# Also mount /subscriptions, /auth, and /analytics at root for convenient API access
 from app.api.v1.subscriptions import router as subscriptions_router
+from app.api.v1.auth import router as auth_router
+from app.api.v1.analytics import router as analytics_router
+
 app.include_router(subscriptions_router, prefix="/subscriptions", tags=["Subscriptions (Root Alias)"])
+app.include_router(auth_router, prefix="/auth", tags=["Auth (Root Alias)"])
+app.include_router(analytics_router, prefix="/analytics", tags=["Analytics (Root Alias)"])
+
 
 
 @app.get("/", tags=["Root"])

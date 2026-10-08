@@ -46,4 +46,39 @@
   - Navigation link added from home dashboard to `/subscriptions`.
   - Zero ESLint errors, zero TypeScript errors (`tsc --noEmit`), and production build passing (`next build`).
 
+## [Unreleased] - Phase 3 Authentication & User Ownership Isolation
+
+### Added
+- **Data Model & Migrations**:
+  - Defined SQLAlchemy 2.0 `User` model with String(128) ID (supporting both UUID and Clerk user IDs), unique indexed email, bcrypt hashed password (nullable for SSO/Clerk), full name, avatar URL, active status, and timestamps.
+  - Generated and executed Alembic migration `5feaad396f25_create_users_table.py` against live Neon PostgreSQL database.
+- **Core Security & Cryptography**:
+  - `backend/app/core/security.py` with bcrypt salt generation & verification, and PyJWT token generation and claim decoding.
+  - Configured JWT settings (`JWT_SECRET_KEY`, `JWT_ALGORITHM`, `ACCESS_TOKEN_EXPIRE_MINUTES`) and Clerk environment bindings.
+- **Service & API Endpoints**:
+  - `UserService` in `backend/app/services/user.py` handling registration, credential authentication, duplicate email prevention, and external Clerk SSO sync.
+  - Endpoints under `/api/v1/auth` and root `/auth` for `/signup`, `/login`, and `/me`.
+  - Upgraded `get_current_user` and `get_current_user_id` dependencies in `backend/app/core/deps.py` enforcing Bearer JWT token validation with user ownership isolation across all subscription endpoints.
+- **Frontend Authentication Architecture**:
+  - `AuthProvider` and `useAuth` hook in `frontend/lib/auth-context.tsx` managing JWT tokens, user profiles, persistent storage, and automatic session restoration.
+  - Top `Navbar` component with brand navigation, active user chip, and Sign Out action.
+  - `/login` page with email/password form, show/hide password toggle, Clerk readiness badge, and 1-click Demo Account switchers (Alice vs Bob) for testing multi-user isolation.
+  - `/signup` page with client-side validation, password match verification, and automatic redirect to dashboard.
+  - Upgraded `/subscriptions` page displaying live tenant isolation status and authentic token propagation.
+- **Testing & Verification**:
+  - Automated tests in `backend/tests/test_auth.py` verifying signup, duplicate email prevention, login, invalid password rejection, `/me` profile retrieval, and cross-user tenant isolation (User A cannot view, edit, or archive User B's subscriptions).
+  - All 19 pytest tests passing (100% pass rate).
+  - Next.js production build (`npm run build`) passing with zero errors.
+
+### Clerk Authentication Integration
+- Linked Clerk application `app_3KNcbw5uhM7VcS1DfaCN6zllJc8` using Clerk CLI.
+- Installed `@clerk/nextjs` (v6) and `@clerk/themes`.
+- Wrapped Next.js App Router in `<ClerkProvider appearance={{ baseTheme: dark }}>`.
+- Implemented `middleware.ts` with `clerkMiddleware()` and `createRouteMatcher`:
+  - Protects non-public routes (`/subscriptions`, `/dashboard`, etc.) with `307 Redirect` to `/sign-in`.
+  - Public routes permitted: `/`, `/sign-in(.*)`, `/sign-up(.*)`, `/login(.*)`, `/signup(.*)`.
+- Implemented Clerk authentication routes: `/sign-in/[[...sign-in]]` and `/sign-up/[[...sign-up]]`.
+- Added Clerk UI controls (`SignInButton`, `SignUpButton`, `UserButton`, `SignedIn`, `SignedOut`) in `Navbar` and hero sections with modal auth trigger mode.
+- Passed `clerk doctor` verification with 100% green checkmarks.
+
 

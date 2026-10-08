@@ -32,6 +32,13 @@ class Settings(BaseSettings):
     CORS_ORIGINS: Union[List[str], str] = ["http://localhost:3000", "http://127.0.0.1:3000"]
     DEV_USER_ID: Union[str, None] = None
 
+    # Authentication & Security
+    JWT_SECRET_KEY: str = "subsfolio-dev-secret-key-phase-3-jwt-signing-2026"
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 10080  # 7 days
+    CLERK_SECRET_KEY: Union[str, None] = None
+    CLERK_PUBLISHABLE_KEY: Union[str, None] = None
+
     @field_validator("CORS_ORIGINS", mode="before")
     @classmethod
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> List[str]:
